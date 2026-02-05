@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔮 The Mystical Dao Hunt 🔮</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0033 100%);
+  color: #c9a0dc;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Efek background misterius */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(75, 0, 130, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: mysticalGlow 10s ease-in-out infinite;
+}
+
+@keyframes mysticalGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.screen {
+  display: none;
+  animation: fadeIn 0.8s ease-in;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+  }
+  50% { 
+    text-shadow: 0 0 20px #8a2be2, 0 0 30px #8a2be2, 0 0 40px #8a2be2;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  background: linear-gradient(45deg, #8a2be2, #da70d6, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulse 3s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+.narration {
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.5);
+  padding: 25px;
+  margin: 20px 0;
+  line-height: 1.8;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.question-container {
+  background: rgba(20, 0, 40, 0.7);
+  border: 2px solid rgba(138, 43, 226, 0.6);
+  padding: 30px;
+  margin: 30px 0;
+  border-radius: 15px;
+  box-shadow: 
+    0 0 30px rgba(138, 43, 226, 0.4),
+    inset 0 0 20px rgba(138, 43, 226, 0.1);
+  position: relative;
+}
+
+.question-number {
+  font-size: 1.2em;
+  color: #da70d6;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.question-text {
+  font-size: 1.1em;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #c9a0dc;
+}
+
+.timer-box {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 165, 0, 0.5);
+}
+
+.timer {
+  font-size: 1.1em;
+  color: #ffa500;
+  font-weight: bold;
+}
+
+.timer.warning {
+  color: #ff4444;
+  animation: flicker 1s infinite;
+}
+
+.clue-section {
+  background: rgba(255, 165, 0, 0.05);
+  border: 2px solid rgba(255, 165, 0, 0.3);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  min-height: 60px;
+}
+
+.clue-title {
+  color: #ffa500;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.clue-item {
+  background: rgba(255, 165, 0, 0.1);
+  border-left: 3px solid #ffa500;
+  padding: 10px 15px;
+  margin: 8px 0;
+  border-radius: 5px;
+  animation: slideIn 0.5s ease-out;
+  color: #ffd700;
+  line-height: 1.6;
+}
+
+.clue-item.highlight {
+  background: rgba(255, 215, 0, 0.2);
+  border-left-color: #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+input[type="text"] {
+  width: 100%;
+  background: rgba(10, 10, 30, 0.8);
+  color: #c9a0dc;
+  border: 2px solid rgba(138, 43, 226, 0.5);
+  padding: 15px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1em;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  transition: all 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+}
+
+button {
+  background: linear-gradient(135deg, #8a2be2 0%, #4b0082 100%);
+  color: #fff;
+  border: 2px solid rgba(138, 43, 226, 0.8);
+  padding: 12px 40px;
+  font-family: 'Courier New', monospace;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin: 10px 5px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
+  background: linear-gradient(135deg, #9a3bea 0%, #5b1092 100%);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.danger {
+  background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+  border-color: rgba(255, 68, 68, 0.8);
+}
+
+button.danger:hover {
+  background: linear-gradient(135deg, #ff5555 0%, #dd0000 100%);
+  box-shadow: 0 0 30px rgba(255, 68, 68, 0.8);
+}
+
+.message {
+  text-align: center;
+  font-size: 1.2em;
+  margin: 20px 0;
+  min-height: 30px;
+  padding: 15px;
+  border-radius: 8px;
+  animation: fadeIn 0.3s;
+}
+
+.error {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  border: 2px solid rgba(255, 68, 68, 0.3);
+  text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.success {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+  border: 2px solid rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.warning {
+  color: #ffa500;
+  background: rgba(255, 165, 0, 0.1);
+  border: 2px solid rgba(255, 165, 0, 0.3);
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.controls {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.intro-box {
+  background: rgba(138, 43, 226, 0.15);
+  border: 3px solid rgba(138, 43, 226, 0.6);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+}
+
+.intro-box h2 {
+  color: #da70d6;
+  margin-bottom: 20px;
+  font-size: 2em;
+  animation: pulse 2s infinite;
+}
+
+.intro-box p {
+  line-height: 1.8;
+  margin: 15px 0;
+  font-size: 1.1em;
+}
+
+.victory-screen {
+  text-align: center;
+  padding: 40px;
+}
+
+.victory-screen h2 {
+  font-size: 3em;
+  margin-bottom: 30px;
+  animation: pulse 2s infinite;
+  color: #ffd700;
+}
+
+.secret-code {
+  background: rgba(255, 215, 0, 0.1);
+  border: 3px solid rgba(255, 215, 0, 0.6);
+  padding: 30px;
+  margin: 30px 0;
+  border-radius: 15px;
+  font-size: 1.5em;
+  letter-spacing: 3px;
+  color: #ffd700;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+.location-clue {
+  background: rgba(138, 43, 226, 0.15);
+  border: 2px dashed rgba(138, 43, 226, 0.6);
+  padding: 25px;
+  margin-top: 30px;
+  border-radius: 10px;
+  font-size: 1.2em;
+  line-height: 1.8;
+  animation: pulse 3s infinite;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: rgba(138, 43, 226, 0.2);
+  border-radius: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+  border: 1px solid rgba(138, 43, 226, 0.4);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8a2be2, #da70d6);
+  transition: width 0.5s ease;
+  box-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+}
+
+.mystical-symbol {
+  display: inline-block;
+  animation: pulse 2s infinite;
+  margin: 0 5px;
+}
+
+.timeout-warning {
+  background: rgba(255, 68, 68, 0.15);
+  border: 2px solid rgba(255, 68, 68, 0.5);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  text-align: center;
+  animation: pulse 1s infinite;
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 1.8em; }
+  .question-text { font-size: 1em; }
+  button { padding: 10px 25px; font-size: 1em; }
+  .timer-box {
+    position: static;
+    margin-bottom: 15px;
+    display: inline-block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- INTRO SCREEN -->
+  <div id="intro" class="screen active">
+    <div class="intro-box">
+      <h1><span class="mystical-symbol">🔮</span> The Mystical Dao Hunt <span class="mystical-symbol">🔮</span></h1>
+      <h2>Selamat Datang, Pencari Kebijaksanaan...</h2>
+      <p>
+        Di dalam kegelapan malam yang sunyi, sebuah misteri kuno menanti untuk diungkap.
+        Lima pertanyaan mistis telah tersegel dalam waktu, menguji pengetahuan Anda tentang 
+        jalan <strong>Dao</strong> yang agung.
+      </p>
+      <p style="margin-top: 20px;">
+        ⏰ <strong>Perhatian:</strong> Setiap pertanyaan memiliki batas waktu 3 menit.<br>
+        Petunjuk progresif akan muncul saat waktu berjalan...
+      </p>
+      <p style="margin-top: 15px; color: #ffa500;">
+        📜 <strong>Sistem Clue Bertahap:</strong><br>
+        • Sisa 1 menit: Info struktur jawaban<br>
+        • Sisa 45 detik: Huruf pertama kata pertama<br>
+        • Sisa 30 detik: Huruf pertama kata kedua<br>
+        • Sisa 10 detik: Huruf tambahan terakhir
+      </p>
+      <p style="margin-top: 20px; color: #ff6666;">
+        ⚠️ <strong>Peringatan:</strong> Jika waktu habis, perjalanan akan dimulai ulang<br>
+        dengan soal-soal yang berbeda dari 10 pertanyaan tersedia!
+      </p>
+      <p style="margin-top: 20px; color: #00ff88;">
+        🏆 Setelah menyelesaikan 5 pertanyaan, kata kunci rahasia<br>
+        dan petunjuk lokasi tersembunyi menanti Anda...
+      </p>
+      <div class="controls" style="margin-top: 40px;">
+        <button onclick="startHunt()">🔓 MULAI PERBURUAN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUESTION SCREENS -->
+  <div id="question-screen" class="screen">
+    <h1><span class="mystical-symbol">✨</span> The Mystical Dao Hunt <span class="mystical-symbol">✨</span></h1>
+    
+    <div class="progress-bar">
+      <div id="progress" class="progress-fill" style="width: 0%"></div>
+    </div>
+
+    <div id="question-container"></div>
+
+    <div class="controls">
+      <button onclick="checkAnswer()">🔍 Periksa Jawaban</button>
+    </div>
+
+    <div id="message" class="message"></div>
+  </div>
+
+  <!-- VICTORY SCREEN -->
+  <div id="victory" class="screen">
+    <div class="victory-screen">
+      <h1>✨ SELAMAT! ✨</h1>
+      <h2>🎉 Anda Telah Menguasai Lima Misteri! 🎉</h2>
+      
+      <p style="font-size: 1.3em; margin: 30px 0; line-height: 1.8;">
+        Kebijaksanaan Dao telah membimbing Anda melewati setiap tantangan.<br>
+        Perjalanan spiritual Anda telah mengungkap rahasia yang tersembunyi.
+      </p>
+
+      <div class="secret-code">
+        <div style="margin-bottom: 15px;">🔑 KATA KUNCI RAHASIA 🔑</div>
+        <div style="font-size: 2em; font-weight: bold;">TAO WISDOM</div>
+      </div>
+
+      <div class="location-clue">
+        <div style="margin-bottom: 15px;">📍 <strong>PETUNJUK LOKASI SELANJUTNYA:</strong></div>
+        <p>
+          "Di mana api tak pernah padam dan aroma dupa mengudara,<br>
+          Tempat suci para dewa bersemayam dengan megah,<br>
+          Altar kebajikan berdiri dengan khidmat,<br>
+          <strong>Carilah di ruang sembahyang utama...</strong>"
+        </p>
+        <p style="margin-top: 20px; color: #ffa500;">
+          🏛️ <em>Kunci terletak di altar utama tempat persembahan diberikan</em>
+        </p>
+      </div>
+
+      <div class="controls" style="margin-top: 40px;">
+        <button onclick="location.reload()">🔄 Mulai Dari Awal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Data 10 pertanyaan lengkap
+const allQuestions = [
+  {
+    text: "Kumpulan jenderal surgawi yang bergiliran mengatur nasib, keberuntungan, dan malapetaka manusia setiap tahunnya, terkenal dengan nama dewa?",
+    answer: "THAY SUI"
+  },
+  {
+    text: "Dalam konsep Tao, dua kekuatan yang saling bertentangan dan melengkapi di alam semesta dilambangkan dengan simbol?",
+    answer: "YIN YANG"
+  },
+  {
+    text: "Sumbangsih berbuat amal atau melakukan kebaikan yang bermanfaat untuk orang lain, dapat dengan cara menyumbangkan uang/tenaga/pikiran/waktu, disebut apa?",
+    answer: "GONG DE"
+  },
+  {
+    text: "Disebut apa ilmu kedewaan mahadewa Thay Shang Lao Jun Xiao Yao Pai, dimana latihan unik dan ajaibnya bersandar pada kekuatan dewa/shen li?",
+    answer: "DAO YIN SHU"
+  },
+  {
+    text: "Setelah di Taoying, siapa yang akan membimbing kita dalam berlatih?",
+    answer: "FU FAK SHEN"
+  },
+  {
+    text: "Siapakah dewa yang dikenal sebagai dewa agung Kebajikan dunia?",
+    answer: "DAO DE SHI ZUN"
+  },
+  {
+    text: "Menurut ajaran Dao De Jing, mengubah diri sendiri dulu lalu hidup selaras dengan TAO baru bisa merubah orang lain dan dunia, dikenal dengan istilah apa?",
+    answer: "WU CI WU REN"
+  },
+  {
+    text: "Merevisi hati/batin dan memupuk karakter baik, merupakan salah satu ajaran dalam agama Tao yang kita kenal sebagai nama?",
+    answer: "XIU XIN YANG XING"
+  },
+  {
+    text: "Siapakah tokoh TAO yang menuliskan kitab yang berisi 5000 kata dan mengenalkan istilah Dao?",
+    answer: "LAOZI"
+  },
+  {
+    text: "Apa nama ritual upacara Dao TSM XYP untuk menangkal bala yang dilakukan setiap tahun?",
+    answer: "PO UN"
+  }
+];
+
+let selectedQuestions = [];
+let currentQuestionIndex = 0;
+let timerInterval = null;
+let remainingTime = 180; // 3 menit = 180 detik
+let cluesShown = [];
+
+// Fungsi untuk mengacak array
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
+// Fungsi untuk memilih 5 soal acak
+function selectRandomQuestions() {
+  const shuffled = shuffleArray(allQuestions);
+  selectedQuestions = shuffled.slice(0, 5);
+  currentQuestionIndex = 0;
+}
+
+// Fungsi untuk menganalisis struktur jawaban
+function analyzeAnswer(answer) {
+  const trimmed = answer.trim();
+  const words = trimmed.split(/\s+/);
+  const totalChars = trimmed.replace(/\s+/g, '').length;
+  
+  return {
+    totalChars: totalChars,
+    totalWords: words.length,
+    words: words,
+    wordLengths: words.map(w => w.length)
+  };
+}
+
+// Fungsi untuk membuat clue progresif
+function generateClues(answer) {
+  const analysis = analyzeAnswer(answer);
+  const words = analysis.words;
+  const clues = [];
+  
+  // Clue 1: Struktur (sisa 60 detik)
+  let structureInfo = `Jawaban terdiri dari ${analysis.totalChars} huruf`;
+  if (analysis.totalWords > 1) {
+    const wordInfo = analysis.wordLengths.map((len, idx) => `kata ${idx + 1}: ${len} huruf`).join(', ');
+    structureInfo += `, ${analysis.totalWords} kata (${wordInfo})`;
+  }
+  clues.push({
+    time: 60,
+    text: structureInfo,
+    type: 'structure'
+  });
+  
+  // Clue 2: Huruf pertama kata pertama (sisa 45 detik)
+  if (words.length > 0 && words[0].length > 0) {
+    clues.push({
+      time: 45,
+      text: `Huruf pertama kata pertama: <strong>${words[0][0].toUpperCase()}</strong>`,
+      type: 'letter'
+    });
+  }
+  
+  // Clue 3: Huruf pertama kata kedua (sisa 30 detik) - jika ada
+  if (words.length > 1 && words[1].length > 0) {
+    clues.push({
+      time: 30,
+      text: `Huruf pertama kata kedua: <strong>${words[1][0].toUpperCase()}</strong>`,
+      type: 'letter'
+    });
+  }
+  
+  // Clue 4: Huruf tambahan (sisa 10 detik)
+  let extraHints = [];
+  if (words.length > 0 && words[0].length > 1) {
+    extraHints.push(words[0][1].toUpperCase());
+  }
+  if (words.length > 1 && words[1].length > 1) {
+    extraHints.push(words[1][1].toUpperCase());
+  } else if (words.length > 0 && words[0].length > 2) {
+    extraHints.push(words[0][2].toUpperCase());
+  }
+  
+  if (extraHints.length > 0) {
+    clues.push({
+      time: 10,
+      text: `Huruf tambahan: <strong>${extraHints.join(' & ')}</strong>`,
+      type: 'extra'
+    });
+  }
+  
+  return clues;
+}
+
+function startHunt() {
+  selectRandomQuestions();
+  document.getElementById('intro').classList.remove('active');
+  document.getElementById('question-screen').classList.add('active');
+  loadQuestion();
+}
+
+function loadQuestion() {
+  if (currentQuestionIndex >= selectedQuestions.length) {
+    showVictory();
+    return;
+  }
+
+  const q = selectedQuestions[currentQuestionIndex];
+  const container = document.getElementById('question-container');
+  
+  // Update progress bar
+  const progress = (currentQuestionIndex / selectedQuestions.length) * 100;
+  document.getElementById('progress').style.width = progress + '%';
+  
+  // Generate clues untuk pertanyaan ini
+  const questionClues = generateClues(q.answer);
+  
+  container.innerHTML = `
+    <div class="question-container">
+      <div class="timer-box">
+        <div class="timer" id="timer">⏰ 03:00</div>
+      </div>
+      <div class="question-number">Pertanyaan ${currentQuestionIndex + 1} dari ${selectedQuestions.length}</div>
+      <div class="question-text">${q.text}</div>
+      <input type="text" id="answer-input" placeholder="Masukkan jawaban Anda di sini..." autocomplete="off">
+      
+      <div class="clue-section" id="clue-section">
+        <div class="clue-title">💡 Petunjuk Mistis</div>
+        <div id="clues-container">
+          <p style="color: #999; font-style: italic;">Petunjuk akan muncul seiring waktu berjalan...</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('message').innerHTML = '';
+  document.getElementById('answer-input').focus();
+  
+  // Reset clues
+  cluesShown = [];
+  
+  // Start timer (3 minutes = 180 seconds)
+  startTimer(180, questionClues);
+  
+  // Allow Enter key to submit
+  document.getElementById('answer-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkAnswer();
+    }
+  });
+}
+
+function startTimer(seconds, clues) {
+  // Clear any existing timer
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+  
+  remainingTime = seconds;
+  const timerDisplay = document.getElementById('timer');
+  const cluesContainer = document.getElementById('clues-container');
+  
+  // Update timer display immediately
+  updateTimerDisplay();
+  
+  timerInterval = setInterval(() => {
+    remainingTime--;
+    updateTimerDisplay();
+    
+    // Check dan tampilkan clues sesuai waktu
+    clues.forEach(clue => {
+      if (remainingTime === clue.time && !cluesShown.includes(clue.time)) {
+        showClue(clue.text, clue.type);
+        cluesShown.push(clue.time);
+      }
+    });
+    
+    // Warning ketika waktu hampir habis
+    if (remainingTime === 30 && timerDisplay) {
+      timerDisplay.classList.add('warning');
+    }
+    
+    // Waktu habis
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      handleTimeout();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const timerDisplay = document.getElementById('timer');
+  if (!timerDisplay) return;
+  
+  const minutes = Math.floor(remainingTime / 60);
+  const secs = remainingTime % 60;
+  timerDisplay.textContent = `⏰ ${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+  
+  if (remainingTime <= 30) {
+    timerDisplay.classList.add('warning');
+  }
+}
+
+function showClue(text, type) {
+  const cluesContainer = document.getElementById('clues-container');
+  if (!cluesContainer) return;
+  
+  // Hapus placeholder jika ada
+  if (cluesContainer.querySelector('p[style*="color: #999"]')) {
+    cluesContainer.innerHTML = '';
+  }
+  
+  const clueDiv = document.createElement('div');
+  clueDiv.className = 'clue-item';
+  if (type === 'letter' || type === 'extra') {
+    clueDiv.classList.add('highlight');
+  }
+  clueDiv.innerHTML = text;
+  
+  cluesContainer.appendChild(clueDiv);
+}
+
+function handleTimeout() {
+  const messageDiv = document.getElementById('message');
+  const container = document.getElementById('question-container');
+  
+  // Tampilkan peringatan timeout
+  const timeoutWarning = document.createElement('div');
+  timeoutWarning.className = 'timeout-warning';
+  timeoutWarning.innerHTML = `
+    <h3 style="color: #ff4444; margin-bottom: 15px;">⏰ WAKTU HABIS!</h3>
+    <p style="margin-bottom: 15px;">Perjalanan Anda akan dimulai ulang dengan soal-soal baru...</p>
+    <button onclick="restartWithNewQuestions()" class="danger">🔄 Mulai Ulang dengan Soal Baru</button>
+  `;
+  
+  container.appendChild(timeoutWarning);
+  
+  messageDiv.innerHTML = '⚠️ Waktu telah habis. Renungkan lebih dalam dan coba lagi!';
+  messageDiv.className = 'message warning';
+  
+  // Disable input
+  const input = document.getElementById('answer-input');
+  if (input) {
+    input.disabled = true;
+    input.style.opacity = '0.5';
+  }
+}
+
+function restartWithNewQuestions() {
+  // Reset semua state
+  currentQuestionIndex = 0;
+  cluesShown = [];
+  
+  // Pilih 5 soal baru
+  selectRandomQuestions();
+  
+  // Mulai dari awal
+  document.getElementById('message').innerHTML = '';
+  loadQuestion();
+}
+
+function checkAnswer() {
+  const input = document.getElementById('answer-input');
+  if (!input || input.disabled) return;
+  
+  const userAnswer = input.value.trim().toUpperCase();
+  const correctAnswer = selectedQuestions[currentQuestionIndex].answer.toUpperCase();
+  const messageDiv = document.getElementById('message');
+  
+  if (!userAnswer) {
+    messageDiv.innerHTML = '⚠️ Silakan masukkan jawaban Anda!';
+    messageDiv.className = 'message error';
+    return;
+  }
+  
+  // Normalize spaces for comparison
+  const normalizedUser = userAnswer.replace(/\s+/g, ' ');
+  const normalizedCorrect = correctAnswer.replace(/\s+/g, ' ');
+  
+  if (normalizedUser === normalizedCorrect) {
+    messageDiv.innerHTML = '✨ BENAR! Kebijaksanaan Dao menerangi jalan Anda...';
+    messageDiv.className = 'message success';
+    
+    // Clear timer
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    
+    // Disable input
+    input.disabled = true;
+    
+    // Move to next question after 2 seconds
+    setTimeout(() => {
+      currentQuestionIndex++;
+      loadQuestion();
+    }, 2000);
+  } else {
+    messageDiv.innerHTML = `❌ Jawaban belum tepat. Renungkan lebih dalam...<br><small>(Anda menjawab: ${userAnswer})</small>`;
+    messageDiv.className = 'message error';
+    
+    // Shake animation
+    input.style.animation = 'none';
+    setTimeout(() => {
+      input.style.animation = 'fadeIn 0.3s';
+    }, 10);
+  }
+}
+
+function showVictory() {
+  // Clear all timers
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  
+  document.getElementById('question-screen').classList.remove('active');
+  document.getElementById('victory').classList.add('active');
+  
+  // Update progress to 100%
+  document.getElementById('progress').style.width = '100%';
+}
+
+// Prevent accidental page refresh
+window.addEventListener('beforeunload', function (e) {
+  if (currentQuestionIndex > 0 && currentQuestionIndex < selectedQuestions.length) {
+    e.preventDefault();
+    e.returnValue = 'Apakah Anda yakin ingin meninggalkan halaman? Progress Anda akan hilang.';
+  }
+});
+
+// Cleanup on page unload
+window.addEventListener('unload', function() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+  }
+});
+</script>
+
+</body>
+</html>
