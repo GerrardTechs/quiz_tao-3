@@ -405,7 +405,7 @@ button.danger:hover {
       <h2>Selamat Datang, Pencari Kebijaksanaan...</h2>
       <p>
         Di dalam kegelapan malam yang sunyi, sebuah misteri kuno menanti untuk diungkap.
-        Lima pertanyaan mistis telah tersegel dalam waktu, menguji pengetahuan Anda tentang 
+        Lima pertanyaan mistis telah tersegel dalam waktu, menguji pengetahuan kalian tentang 
         jalan <strong>Dao</strong> yang agung.
       </p>
       <p style="margin-top: 20px;">
@@ -425,7 +425,7 @@ button.danger:hover {
       </p>
       <p style="margin-top: 20px; color: #00ff88;">
         🏆 Setelah menyelesaikan 5 pertanyaan, kata kunci rahasia<br>
-        dan petunjuk lokasi tersembunyi menanti Anda...
+        dan petunjuk lokasi tersembunyi menanti kalian...
       </p>
       <div class="controls" style="margin-top: 40px;">
         <button onclick="startHunt()">🔓 MULAI PERBURUAN</button>
@@ -454,28 +454,29 @@ button.danger:hover {
   <div id="victory" class="screen">
     <div class="victory-screen">
       <h1>✨ SELAMAT! ✨</h1>
-      <h2>🎉 Anda Telah Menguasai Lima Misteri! 🎉</h2>
+      <h2>🎉 kalian Telah Menguasai Lima Misteri! 🎉</h2>
       
       <p style="font-size: 1.3em; margin: 30px 0; line-height: 1.8;">
-        Kebijaksanaan Dao telah membimbing Anda melewati setiap tantangan.<br>
-        Perjalanan spiritual Anda telah mengungkap rahasia yang tersembunyi.
+        Kebijaksanaan Dao telah membimbing kalian melewati setiap tantangan.<br>
+        Perjalanan spiritual kalian telah mengungkap rahasia yang tersembunyi.
       </p>
 
       <div class="secret-code">
         <div style="margin-bottom: 15px;">🔑 KATA KUNCI RAHASIA 🔑</div>
-        <div style="font-size: 2em; font-weight: bold;">TAO WISDOM</div>
+        <div style="font-size: 2em; font-weight: bold;">Hao</div>
       </div>
 
-      <div class="location-clue">
+        <div class="location-clue">
         <div style="margin-bottom: 15px;">📍 <strong>PETUNJUK LOKASI SELANJUTNYA:</strong></div>
         <p>
-          "Di mana api tak pernah padam dan aroma dupa mengudara,<br>
-          Tempat suci para dewa bersemayam dengan megah,<br>
-          Altar kebajikan berdiri dengan khidmat,<br>
-          <strong>Carilah di ruang sembahyang utama...</strong>"
+          "Bukan ruang belajar, namun sering dipenuhi banyak langkah,<br>
+          Bukan tempat bekerja, tapi ramai saat momen penting tiba.<br>
+          Atapnya menjulang, menelan gema suara manusia.<br>
+          Di sanalah kerumunan pernah menjadi satu tujuan.<br>
+          <strong>Temukan garis finish terakhir.</strong>"
         </p>
         <p style="margin-top: 20px; color: #ffa500;">
-          🏛️ <em>Kunci terletak di altar utama tempat persembahan diberikan</em>
+          🏛️ <em>Carilah bangunan bernama singkat, namun bermakna luas.</em>
         </p>
       </div>
 
@@ -502,7 +503,7 @@ const allQuestions = [
     answer: "GONG DE"
   },
   {
-    text: "Disebut apa ilmu kedewaan mahadewa Thay Shang Lao Jun Xiao Yao Pai, dimana latihan unik dan ajaibnya bersandar pada kekuatan dewa/shen li?",
+    text: "Disebut apa ilmu kedewaan mahadewa Thay Shang Lao Jun Xiao Yao Pai, dimana latihan unik dan ajaibnya berskalianr pada kekuatan dewa/shen li?",
     answer: "DAO YIN SHU"
   },
   {
@@ -656,7 +657,7 @@ function loadQuestion() {
       </div>
       <div class="question-number">Pertanyaan ${currentQuestionIndex + 1} dari ${selectedQuestions.length}</div>
       <div class="question-text">${q.text}</div>
-      <input type="text" id="answer-input" placeholder="Masukkan jawaban Anda di sini..." autocomplete="off">
+      <input type="text" id="answer-input" placeholder="Masukkan jawaban kalian di sini..." autocomplete="off">
       
       <div class="clue-section" id="clue-section">
         <div class="clue-title">💡 Petunjuk Mistis</div>
@@ -763,7 +764,7 @@ function handleTimeout() {
   timeoutWarning.className = 'timeout-warning';
   timeoutWarning.innerHTML = `
     <h3 style="color: #ff4444; margin-bottom: 15px;">⏰ WAKTU HABIS!</h3>
-    <p style="margin-bottom: 15px;">Perjalanan Anda akan dimulai ulang dengan soal-soal baru...</p>
+    <p style="margin-bottom: 15px;">Perjalanan kalian akan dimulai ulang dengan soal-soal baru...</p>
     <button onclick="restartWithNewQuestions()" class="danger">🔄 Mulai Ulang dengan Soal Baru</button>
   `;
   
@@ -802,7 +803,7 @@ function checkAnswer() {
   const messageDiv = document.getElementById('message');
   
   if (!userAnswer) {
-    messageDiv.innerHTML = '⚠️ Silakan masukkan jawaban Anda!';
+    messageDiv.innerHTML = '⚠️ Silakan masukkan jawaban kalian!';
     messageDiv.className = 'message error';
     return;
   }
@@ -812,7 +813,7 @@ function checkAnswer() {
   const normalizedCorrect = correctAnswer.replace(/\s+/g, ' ');
   
   if (normalizedUser === normalizedCorrect) {
-    messageDiv.innerHTML = '✨ BENAR! Kebijaksanaan Dao menerangi jalan Anda...';
+    messageDiv.innerHTML = '✨ BENAR! Kebijaksanaan Dao menerangi jalan kalian...';
     messageDiv.className = 'message success';
     
     // Clear timer
@@ -830,7 +831,7 @@ function checkAnswer() {
       loadQuestion();
     }, 2000);
   } else {
-    messageDiv.innerHTML = `❌ Jawaban belum tepat. Renungkan lebih dalam...<br><small>(Anda menjawab: ${userAnswer})</small>`;
+    messageDiv.innerHTML = `❌ Jawaban belum tepat. Renungkan lebih dalam...<br><small>(kalian menjawab: ${userAnswer})</small>`;
     messageDiv.className = 'message error';
     
     // Shake animation
@@ -859,7 +860,7 @@ function showVictory() {
 window.addEventListener('beforeunload', function (e) {
   if (currentQuestionIndex > 0 && currentQuestionIndex < selectedQuestions.length) {
     e.preventDefault();
-    e.returnValue = 'Apakah Anda yakin ingin meninggalkan halaman? Progress Anda akan hilang.';
+    e.returnValue = 'Apakah kalian yakin ingin meninggalkan halaman? Progress kalian akan hilang.';
   }
 });
 
